@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Unknowns Sandbox: a standalone BepInEx 5 plugin
+    (BepInEx\plugins\UnknownsSandbox\UnknownsSandbox.dll).
+    Build with BUILD.bat in this folder.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>UnknownsSandbox</AssemblyName>
+    <RootNamespace>UnknownsSandbox</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>1.0.0</Version>
+    <Product>Unknowns Sandbox</Product>
+    <GorillaTagPath Condition="'$(GorillaTagPath)' == ''">D:\Steam\steamapps\common\Gorilla Tag</GorillaTagPath>
+    <ManagedPath>$(GorillaTagPath)\Gorilla Tag_Data\Managed</ManagedPath>
+    <BepInExCore>$(GorillaTagPath)\BepInEx\core</BepInExCore>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove=".build\**;output\**" />
+    <EmbeddedResource Include="Resources\kenney_objects.txt" LogicalName="UnknownsSandbox.kenney_objects.txt" />
+    <EmbeddedResource Include="Resources\kenney_blaster_kit.txt" LogicalName="UnknownsSandbox.kenney_blaster_kit.txt" />
+    <EmbeddedResource Include="Resources\realistic_models.txt.gz" LogicalName="UnknownsSandbox.realistic_models.txt.gz" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="netstandard" Condition="Exists('$(ManagedPath)\netstandard.dll')">
+      <HintPath>$(ManagedPath)\netstandard.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="BepInEx"><HintPath>$(BepInExCore)\BepInEx.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(BepInExCore)\0Harmony.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Assembly-CSharp"><HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Fusion.Runtime"><HintPath>$(ManagedPath)\Fusion.Runtime.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Photon3Unity3D"><HintPath>$(ManagedPath)\Photon3Unity3D.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="PhotonRealtime"><HintPath>$(ManagedPath)\PhotonRealtime.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="PhotonUnityNetworking"><HintPath>$(ManagedPath)\PhotonUnityNetworking.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Unity.TextMeshPro"><HintPath>$(ManagedPath)\Unity.TextMeshPro.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Unity.InputSystem"><HintPath>$(ManagedPath)\Unity.InputSystem.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Unity.Collections" Condition="Exists('$(ManagedPath)\Unity.Collections.dll')"><HintPath>$(ManagedPath)\Unity.Collections.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine"><HintPath>$(ManagedPath)\UnityEngine.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(ManagedPath)\UnityEngine.UI.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(ManagedPath)\UnityEngine.UIModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(ManagedPath)\UnityEngine.IMGUIModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.TextRenderingModule"><HintPath>$(ManagedPath)\UnityEngine.TextRenderingModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(ManagedPath)\UnityEngine.PhysicsModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.VehiclesModule"><HintPath>$(ManagedPath)\UnityEngine.VehiclesModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.AudioModule"><HintPath>$(ManagedPath)\UnityEngine.AudioModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.AnimationModule"><HintPath>$(ManagedPath)\UnityEngine.AnimationModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule"><HintPath>$(ManagedPath)\UnityEngine.ParticleSystemModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.VRModule"><HintPath>$(ManagedPath)\UnityEngine.VRModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Newtonsoft.Json"><HintPath>$(ManagedPath)\Newtonsoft.Json.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.ImageConversionModule"><HintPath>$(ManagedPath)\UnityEngine.ImageConversionModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule"><HintPath>$(ManagedPath)\UnityEngine.UnityWebRequestModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule"><HintPath>$(ManagedPath)\UnityEngine.UnityWebRequestAudioModule.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="UnityEngine.TerrainModule" Condition="Exists('$(ManagedPath)\UnityEngine.TerrainModule.dll')"><HintPath>$(ManagedPath)\UnityEngine.TerrainModule.dll</HintPath><Private>False</Private></Reference>
+  </ItemGroup>
+</Project>

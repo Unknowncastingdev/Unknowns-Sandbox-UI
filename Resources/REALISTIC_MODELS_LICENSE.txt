@@ -1,0 +1,12 @@
+realistic_models.txt.gz
+
+Poly Haven models (https://polyhaven.com/models): CC0 1.0 Universal (public domain).
+Quaternius Ultimate Guns Pack (https://quaternius.com, via https://poly.pizza): CC0 1.0 Universal (public domain).
+
+Converted with Models/converter (convert.js): the textures are baked into one colour per
+triangle and the meshes simplified. To rebuild: run fetch_ph.js with the Poly Haven ids,
+download the Quaternius GLBs, then jobs.sh (needs Node with @gltf-transform/core,
+@gltf-transform/extensions, meshoptimizer, jpeg-js and pngjs).
+
+Gadget models (also CC0 1.0, via https://poly.pizza): "Scifi Pistol" by Quaternius (Teleport Gun) and
+"Scifi Gun" by MiniPoly (Build Gun).
