@@ -829,7 +829,7 @@ namespace UnknownsSandbox
 
       section("HOW IT WORKS");
       TMP_Text info = SbText(sbContent,
-        "Other SandBox players see what you place. You can stand on and bump into objects only in modded lobbies, " +
+        "Other SandBox players see what you place. You can stand on and bump into objects only in Utilla modded lobbies or SandBox lobbies, " +
         "or when everyone in the lobby has the SandBox (or when you are offline). Anywhere else they are see-through.\n" +
         "While aiming, the OTHER hand's stick rotates (left/right) and resizes (up/down). Pointing at the middle display, your stick scrolls. " +
         "Grip near a gun, sword, bomb or object to hold it, trigger to use it. Anchored things stay where you let go; the rest gets thrown. " +

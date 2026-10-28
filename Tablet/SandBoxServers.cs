@@ -29,6 +29,7 @@ namespace UnknownsSandbox
     private string sbSrvName = string.Empty, sbSrvPassword = string.Empty, sbSrvCode = string.Empty, sbSrvJoinPw = string.Empty;
     private int sbSrvMax = 10;
     private bool sbSrvPublic = true;      // public by default
+    private bool sbSrvCasual;
     private bool sbSrvCreating;           // the CREATE SERVER page is open
     private bool sbSrvListed = true;
     private int sbSrvField;          // 0 none, 1 name, 2 password, 3 code, 4 join password
@@ -97,11 +98,13 @@ namespace UnknownsSandbox
       if ((UnityEngine.Object)PhotonNetworkController.Instance == (UnityEngine.Object)null) { this.ShowToast("Servers", "Not connected to Gorilla Tag yet"); return; }
       req.At = Time.unscaledTime;
       SbServerPatches.Pending = req;
+      if (req.Create) SbServerPrepareModdedMode(req);
       try { PhotonNetwork.LocalPlayer?.SetCustomProperties(new PhotonHashtable { { SbPlayerPwProp, req.PwHash ?? string.Empty } }); } catch { }
       try
       {
         PhotonNetworkController.Instance.AttemptToJoinSpecificRoomWithCallback(room, (JoinType)0, r =>
         {
+          if (req.Create) SbServerRestoreGameMode(req);
           if (r == NetJoinResult.Failed_Full) this.ShowToast("Servers", "That server is full");
           if (r == NetJoinResult.Failed_Full || r == NetJoinResult.Failed_Other) SbServerPatches.Pending = null;
           if (r != NetJoinResult.Failed_Other) return;
@@ -141,7 +144,8 @@ namespace UnknownsSandbox
         PwHash = sbSrvPublic ? string.Empty : SbServerHash(code, sbSrvPassword),
         Max = sbSrvMax,
         Public = sbSrvPublic,
-        Listed = sbSrvListed
+        Listed = sbSrvListed,
+        Casual = sbSrvCasual
       }, code);
     }
 
@@ -173,6 +177,25 @@ namespace UnknownsSandbox
 
     private SbServerPatches.Request sbSrvRetryReq;
     private float sbSrvRetryAt;
+
+    private void SbServerPrepareModdedMode(SbServerPatches.Request req)
+    {
+      try
+      {
+        if (GorillaComputer.instance != null) req.PrevGameMode = GorillaComputer.instance.currentGameMode.Value;
+        if (GorillaComputer.instance != null) GorillaComputer.instance.currentGameMode.Value = req.Casual ? "Casual;MODDED_" : "Infection;MODDED_";
+      }
+      catch { }
+    }
+
+    private void SbServerRestoreGameMode(SbServerPatches.Request req)
+    {
+      try
+      {
+        if (req != null && !string.IsNullOrEmpty(req.PrevGameMode) && GorillaComputer.instance != null) GorillaComputer.instance.currentGameMode.Value = req.PrevGameMode;
+      }
+      catch { }
+    }
 
     private void SbLeaveToSinglePlayer()
     {
@@ -393,6 +416,7 @@ namespace UnknownsSandbox
         SbServerField(st, ref y, "NAME", 1);
         section("WHO CAN JOIN");
         SbSettingToggle(st, ref y, "PUBLIC (NO PASSWORD)", () => sbSrvPublic, () => { sbSrvPublic = !sbSrvPublic; SbRebuildGrid(); });
+        SbSettingToggle(st, ref y, "CASUAL (INSTEAD OF INFECTION)", () => sbSrvCasual, () => { sbSrvCasual = !sbSrvCasual; SbRebuildGrid(); });
         if (!sbSrvPublic) SbServerField(st, ref y, "PASSWORD", 2);
         SbSettingToggle(st, ref y, "SHOW IN THE SERVER LIST", () => sbSrvListed, () => { sbSrvListed = !sbSrvListed; });
         SbSettingSlider(st, ref y, "MAX PLAYERS", () => (sbSrvMax - 1) / 19f, v => { sbSrvMax = Mathf.Clamp(1 + Mathf.RoundToInt(v * 19f), 1, 20); }, () => sbSrvMax.ToString());
@@ -442,7 +466,7 @@ namespace UnknownsSandbox
     private void SbOpenCreatePage()
     {
       sbSrvName = string.Empty; sbSrvPassword = string.Empty;
-      sbSrvPublic = true; sbSrvListed = true; sbSrvMax = 10;
+      sbSrvPublic = true; sbSrvListed = true; sbSrvMax = 10; sbSrvCasual = false;
       sbSrvField = 0; sbSrvHosting = false; sbSrvCreating = true;
       sbScroll = sbScrollTarget = 0f;
       SbRebuildGrid();

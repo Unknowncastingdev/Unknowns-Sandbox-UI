@@ -24,6 +24,8 @@ namespace UnknownsSandbox
       public int Max = 10;
       public bool Public;
       public bool Listed = true;   // shown in the server list (SandBoxServerList.cs)
+      public bool Casual;
+      public string PrevGameMode;
       public float At;
     }
 

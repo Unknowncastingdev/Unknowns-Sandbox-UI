@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove=".build\**;output\**" />
+    <Compile Remove=".build\**;output\**;Unknowns Sandbox UI\**" />
     <EmbeddedResource Include="Resources\kenney_objects.txt" LogicalName="UnknownsSandbox.kenney_objects.txt" />
     <EmbeddedResource Include="Resources\kenney_blaster_kit.txt" LogicalName="UnknownsSandbox.kenney_blaster_kit.txt" />
     <EmbeddedResource Include="Resources\realistic_models.txt.gz" LogicalName="UnknownsSandbox.realistic_models.txt.gz" />
@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="BepInEx"><HintPath>$(BepInExCore)\BepInEx.dll</HintPath><Private>False</Private></Reference>
+    <Reference Include="Utilla" Condition="Exists('$(GorillaTagPath)\BepInEx\plugins\Utilla\Utilla.dll')">
+      <HintPath>$(GorillaTagPath)\BepInEx\plugins\Utilla\Utilla.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="0Harmony"><HintPath>$(BepInExCore)\0Harmony.dll</HintPath><Private>False</Private></Reference>
     <Reference Include="Assembly-CSharp"><HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath><Private>False</Private></Reference>
     <Reference Include="Fusion.Runtime"><HintPath>$(ManagedPath)\Fusion.Runtime.dll</HintPath><Private>False</Private></Reference>

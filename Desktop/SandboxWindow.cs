@@ -343,10 +343,10 @@ namespace UnknownsSandbox
       sbFollow = SettingToggle("UI follows you", sbFollow);
 
       SbGui.Section("Controls");
-      if (SbGui.Cycle("Tablet button (VR)", capturing == Capture.TabletButton ? "PRESS A BUTTON..." : TabletBindName((TabletBind)sbOpenBind).ToUpperInvariant()))
-        StartCapture(Capture.TabletButton);
-      if (SbGui.Cycle("Tablet key", capturing == Capture.TabletKey ? "PRESS A KEY..." : KeyName(tabletKey.Value)))
-        StartCapture(Capture.TabletKey);
+      if (SbGui.Cycle("Tablet button (VR)", capturing == Capture.Tablet ? "PRESS A BUTTON..." : TabletBindName((TabletBind)sbOpenBind).ToUpperInvariant()))
+        StartCapture(Capture.Tablet);
+      if (SbGui.Cycle("Tablet key", capturing == Capture.Tablet ? "PRESS A KEY..." : KeyName(tabletKey.Value)))
+        StartCapture(Capture.Tablet);
       if (SbGui.Cycle("Window key", capturing == Capture.WindowKey ? "PRESS A KEY..." : KeyName(windowKey.Value)))
         StartCapture(Capture.WindowKey);
       SbGui.Note("Click one, then press the button or key you want. Esc cancels, Delete clears the tablet key.");

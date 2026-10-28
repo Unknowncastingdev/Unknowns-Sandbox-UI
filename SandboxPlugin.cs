@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 namespace UnknownsSandbox
 {
   [BepInPlugin(Guid, "Unknowns Sandbox", "1.0.0")]
+  [BepInDependency("org.legoandmars.gorillatag.utilla", BepInDependency.DependencyFlags.HardDependency)]
   public partial class SandboxPlugin : BaseUnityPlugin
   {
     public const string Guid = "com.unknowns.sandbox";

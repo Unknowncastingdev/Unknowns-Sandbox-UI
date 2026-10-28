@@ -258,26 +258,28 @@ namespace UnknownsSandbox
       catch { return false; }
     }
 
+    private static bool IsSandboxLobbyRoom()
+    {
+      try
+      {
+        if (!PhotonNetwork.InRoom || PhotonNetwork.CurrentRoom == null) return false;
+        string room = PhotonNetwork.CurrentRoom.Name;
+        return !string.IsNullOrEmpty(room) && room.StartsWith("_SANDBOX", StringComparison.OrdinalIgnoreCase);
+      }
+      catch { return false; }
+    }
+
     private void UpdateGate()
     {
       if (Time.unscaledTime < nextGate) return;
       nextGate = Time.unscaledTime + 0.5f;
       bool solid; string why;
       if (!PhotonNetwork.InRoom) { solid = true; why = "OFFLINE"; }
-      else if (IsModdedRoom()) { solid = true; why = "MODDED LOBBY"; }
+      else if (IsModdedRoom()) { solid = true; why = "UTILLA MODDED LOBBY"; }
+      else if (IsSandboxLobbyRoom()) { solid = true; why = "SANDBOX LOBBY"; }
       else
       {
-        bool all = true;
-        try
-        {
-          foreach (Player pl in PhotonNetwork.PlayerListOthers)
-          {
-            if (pl == null) continue;
-            if (!SbNet.IsSandBoxUser(pl.ActorNumber)) { all = false; break; }
-          }
-        }
-        catch { all = false; }
-        solid = all; why = all ? "ALL UNKNOWNS" : "PUBLIC LOBBY";
+        solid = false; why = "PUBLIC LOBBY";
       }
       GateReason = why;
       if (Time.unscaledTime >= nextPlayerCols || playerCols.Count == 0)
